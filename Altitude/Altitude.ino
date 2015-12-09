@@ -1,3 +1,17 @@
+/*
+ Weather Shield Altitude Example using the MPL3115A2 Barometric Pressure Sensor Example Code
+ By: Derek Runberg
+ SparkFun Electronics
+ Date: December 8th, 2015
+ License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
+
+ Reads the onboard Barometric Pressure sensor on the Weather Shield and prints it out over 
+ the Serial port every 15 seconds
+
+ Hardware Hookup:
+ -Weather Shield -- Make sure all pins are aligned and inserted into the Arduino female headers
+ */
+
 //include required libraries
 #include <Wire.h>
 
@@ -23,6 +37,8 @@ void setup()
   myPressure.setModeAltimeter(); // Measure altitude above sea level in meters
   myPressure.setOversampleRate(7); // Set Oversample to the recommended 128
   myPressure.enableEventFlags(); // Enable all three pressure and temp event flags
+
+  Serial.println("------Altitude------");
 }
 
 void loop()
@@ -35,7 +51,6 @@ void loop()
   
 
   //print out the pressure over the serial port
-  Serial.println("------Altitude------");
   Serial.print("Altitude(m): ");
   Serial.print(altitude, 2);
   Serial.print(" , ");

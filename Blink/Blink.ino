@@ -1,5 +1,19 @@
+/* 
+ Weather Shield Status LED Example Code
+ By: Derek Runberg
+ SparkFun Electronics
+ Date: December 8th, 2015
+ License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
+ 
+ Uses the onboard status LEDs on pins 7 and 8 to blink a "railroad crossing" style blink
+ 
+ Hardware Hookup:
+ -Weather Shield -- Make sure all pins are aligned and inserted into the Arduino female headers
+ */
 
-//create variables for status LEDs
+
+
+//create global variables for status LEDs
 const byte STAT1 = 7;
 const byte STAT2 = 8;
 

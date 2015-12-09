@@ -22,7 +22,10 @@
 MPL3115A2 myPressure;
 
 //create pressure variable
-float pressure;
+float pressure; //current pressure
+float pressureAtm;  //pressure in atmospheres
+float prevPress;  //previous reading pressure
+float sensitivity = 10;  //sensivity in pa
 
 void setup()
 {
@@ -36,18 +39,43 @@ void setup()
   myPressure.setModeBarometer(); // Measure pressure in Pascals from 20 to 110 kPa
   myPressure.setOversampleRate(7); // Set Oversample to the recommended 128
   myPressure.enableEventFlags(); // Enable all three pressure and temp event flags
+  //calibrate pressure value
+  prevPress = myPressure.readPressure();
   Serial.println("------Pressure Reading------");
 }
 
 void loop()
 {
   //read the pressure and store it in the pressure variable
-  pressure = myPressue.readPressure();
-
+  pressure = myPressure.readPressure(); //pressure in pa
+  pressureAtm = pressure/101325; 
+  if(pressure > prevPress + sensitivity)
+  {
   //print out the pressure over the serial port
-  Serial.print("Pressure(pa): ");
-  Serial.println(pressure, 2);
-
+  Serial.print("Pressure(atm): ");
+  Serial.print(pressureAtm, 2);
+  Serial.print("  Pressure(pa): ");
+  Serial.print(pressure, 2);
+  Serial.println(" --RISING");
+  
+  }
+  else if(pressure < prevPress -sensitivity)
+  {
+  Serial.print("Pressure(atm): ");
+  Serial.print(pressureAtm, 2);
+  Serial.print("  Pressure(pa): ");
+  Serial.print(pressure, 2);
+  Serial.println(" --FALLING");
+  }
+  else
+  {
+  Serial.print("Pressure(atm): ");
+  Serial.print(pressureAtm, 2);
+  Serial.print("  Pressure(pa): ");
+  Serial.print(pressure, 2);
+  Serial.println(" --STEADY");
+  }
+  prevPress = pressure;
   //wait 15 seconds
   delay(15 * 1000);
 }

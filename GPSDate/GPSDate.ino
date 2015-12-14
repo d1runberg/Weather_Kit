@@ -17,14 +17,22 @@ void setup() {
 void loop() {
  if(ss.available()>0&&gps.encode(ss.read()) )
  {
-  if (gps.date.isValid())
+  if (gps.time.isValid())
   {
-    Serial.println("--------Current Date------");
-    Serial.print(gps.date.month());
-    Serial.print(F("/"));
-    Serial.print(gps.date.day());
-    Serial.print(F("/"));
-    Serial.println(gps.date.year());
+    Serial.println("--------Current Time------");
+
+    Serial.print(gps.time.hour());
+    Serial.print(F(":"));
+
+    if(gps.time.minute()<10)
+    {
+      Serial.print("0");
+    }
+    Serial.print(gps.time.minute());
+    Serial.print(F(":"));
+   
+    Serial.println(gps.time.second());
+
     delay(5000);
   }
   else if(gps.charsProcessed()<10)

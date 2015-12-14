@@ -17,14 +17,13 @@ void setup() {
 void loop() {
  if(ss.available()>0&&gps.encode(ss.read()) )
  {
-  if (gps.date.isValid())
+  if (gps.speed.isValid())
   {
-    Serial.println("--------Current Date------");
-    Serial.print(gps.date.month());
-    Serial.print(F("/"));
-    Serial.print(gps.date.day());
-    Serial.print(F("/"));
-    Serial.println(gps.date.year());
+    Serial.println("--------Current Speed------");
+
+    Serial.print("Speed(mph): ");
+    Serial.println(gps.speed.mph());
+
     delay(5000);
   }
   else if(gps.charsProcessed()<10)

@@ -17,14 +17,13 @@ void setup() {
 void loop() {
  if(ss.available()>0&&gps.encode(ss.read()) )
  {
-  if (gps.date.isValid())
+  if (gps.altitude.isValid())
   {
-    Serial.println("--------Current Date------");
-    Serial.print(gps.date.month());
-    Serial.print(F("/"));
-    Serial.print(gps.date.day());
-    Serial.print(F("/"));
-    Serial.println(gps.date.year());
+    Serial.println("--------Current Altitude------");
+
+    Serial.print("Altitude(m): ");
+    Serial.println(gps.altitude.meters());
+
     delay(5000);
   }
   else if(gps.charsProcessed()<10)
